@@ -46,6 +46,9 @@ jobs:
         run: |
           pip install -r requirements.txt
           python atlas_server_cli.py build "$env:RUNNER_TEMP\as" --customer Test --out "$env:RUNNER_TEMP\as\test"
+      - name: Visa klassningen av tjänster och roller
+        run: |
+          python -c "import glob, server_model as m; s = m.build_server(m.load_raw(open(glob.glob(r'${{ runner.temp }}/as/*.json')[0], 'rb').read())); print('Windows:', s['windows'], s['build'], s['install_type'], s['platform']); print('Tillagda roller:', s['roles_added']); print('Tillagda funktioner:', s['features_added']); [print('TJANST', x['class'], '|', x['name'], '|', x['display_name'], '|', x['company'], '|', x['path'][:110]) for x in s['services_extra']]; print('Fel:', s['errors'])"
       - name: Spara insamlingen från GitHubs server
         uses: actions/upload-artifact@v4
         with:
