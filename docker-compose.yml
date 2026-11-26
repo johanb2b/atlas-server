@@ -1,0 +1,31 @@
+name: atlas-server
+
+services:
+  atlas-server:
+    build:
+      context: .
+      args:
+        PORT: ${PORT:-8090}
+    image: atlas-server:1.0
+    container_name: atlas-server
+    restart: unless-stopped
+    ports:
+      # 8090 som standard, så att Atlas (8080) kan köras på samma värd.
+      - "${BIND_ADDRESS:-0.0.0.0}:${PORT:-8090}:${PORT:-8090}"
+    volumes:
+      - atlas-server-data:/data
+    environment:
+      PORT: ${PORT:-8090}
+      TZ: ${TZ:-Europe/Stockholm}
+      # Inloggning. Utan APP_PASSWORD är det admin / admin, och lösenordet måste bytas vid första inloggningen.
+      APP_USER: ${APP_USER:-admin}
+      APP_PASSWORD: ${APP_PASSWORD:-}
+      # HTTPS. auto skapar ett självsignerat certifikat i datavolymen. off ger vanlig http.
+      TLS: ${TLS:-auto}
+      TLS_NAMES: ${TLS_NAMES:-}
+      TLS_CERT: ${TLS_CERT:-}
+      TLS_KEY: ${TLS_KEY:-}
+      BIND_ADDRESS: ${BIND_ADDRESS:-}
+
+volumes:
+  atlas-server-data:

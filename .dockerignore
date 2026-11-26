@@ -1,0 +1,9 @@
+.git
+data
+output
+collector/output
+tests
+__pycache__
+*.docx
+*.xlsx
+.env

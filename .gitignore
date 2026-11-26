@@ -1,0 +1,13 @@
+# Kunddata får aldrig hamna i Git
+/data/
+/output/
+collector/output/
+atlasserver_*.json
+!tests/data/atlasserver_*.json
+*.docx
+*.xlsx
+*.zip
+.env
+__pycache__/
+*.pyc
+.venv/

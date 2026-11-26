@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Atlas Server</title>
+<link rel="icon" href="static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="static/app.css">
+<link rel="stylesheet" href="static/server.css">
+<script src="static/theme.js"></script>
+<script src="static/app.js" defer></script>
+</head>
+<body>
+<!-- Text på svenska i elementet, engelska i data-en (och data-en-placeholder, data-en-title, data-en-aria-label). -->
+<aside class="sidebar">
+  <a class="brand" href="#/">
+    <svg class="brand-mark" viewBox="0 0 32 32" width="44" height="44" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#D6002A"/><rect x="7.5" y="7.5" width="17" height="5" rx="1.6" fill="none" stroke="#fff" stroke-width="2"/><rect x="7.5" y="13.5" width="17" height="5" rx="1.6" fill="none" stroke="#fff" stroke-width="2"/><rect x="7.5" y="19.5" width="17" height="5" rx="1.6" fill="none" stroke="#fff" stroke-width="2"/><circle cx="21" cy="10" r="1.1" fill="#fff"/><circle cx="21" cy="16" r="1.1" fill="#fff"/><circle cx="21" cy="22" r="1.1" fill="#fff"/></svg>
+    <span class="brand-text">
+      <span class="brand-name">Atlas Server<span class="brand-version" id="brand-version" hidden></span></span>
+      <span class="brand-sub" data-en="Windows Server">Windows Server</span>
+    </span>
+  </a>
+  <nav class="nav" aria-label="Huvudmeny" data-en-aria-label="Main menu">
+    <div class="nav-label" data-en="Workspace">Arbetsyta</div>
+    <a href="#/" data-nav="envs"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg><span data-en="Environments">Miljöer</span></a>
+    <a href="#/insamlare" data-nav="collector"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-en="Collector">Insamlare</span></a>
+    <a href="#/installningar" data-nav="settings"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span data-en="Settings">Inställningar</span></a>
+  </nav>
+  <div class="side-end">
+    <div class="side-tools">
+      <div class="lang-switch" id="lang-switch" role="group" aria-label="Språk" data-en-aria-label="Language">
+        <button type="button" data-lang="sv" lang="sv" title="Svenska" aria-pressed="true">SV</button>
+        <button type="button" data-lang="en" lang="en" title="English" aria-pressed="false">EN</button>
+      </div>
+      <button class="icon-btn" id="theme-btn" type="button" aria-label="Tema" data-en-aria-label="Theme">
+        <svg class="i-system" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="i-light" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="i-dark" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="side-card">
+      <span class="dot" aria-hidden="true"></span>
+      <span><b data-en="Read only">Bara läsande</b><small data-en="Nothing is changed on the servers">Inget ändras på servrarna</small></span>
+    </div>
+    <div class="user-chip">
+      <span class="avatar" id="user-avatar" aria-hidden="true">A</span>
+      <span><b id="user-name">admin</b><small data-en="Logged in">Inloggad</small></span>
+    </div>
+    <button class="side-link logout" id="logout-btn" type="button">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3M14 16l4-4-4-4M18 12H9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-en="Log out">Logga ut</span>
+    </button>
+  </div>
+</aside>
+
+<main id="view" tabindex="-1"></main>
+
+<!-- Miljöer -->
+<template id="tpl-envs">
+<section class="page">
+  <div class="intro page-head">
+    <p class="eyebrow" data-en="Atlas Server · Environments">Atlas Server · Miljöer</p>
+    <h1 data-en="Document Windows servers">Dokumentera Windows-servrar</h1>
+    <p data-en="An environment is a customer or a part of a customer's network. Run the collector on the servers, import the files here and create the documentation in Word and Excel.">En miljö är en kund eller en del av en kunds nät. Kör insamlaren på servrarna, importera filerna här och skapa dokumentationen i Word och Excel.</p>
+  </div>
+  <div class="env-layout">
+    <div>
+      <div class="env-list" id="env-list"></div>
+      <p class="empty-state" id="env-empty" hidden data-en="No environments yet. Create the first one to the right.">Inga miljöer än. Skapa den första till höger.</p>
+    </div>
+    <form class="card settings-card" id="env-new" autocomplete="off" novalidate>
+      <h2 data-en="New environment">Ny miljö</h2>
+      <label class="field"><span data-en="Customer">Kund</span><input name="customer" maxlength="120" placeholder="Exempel AB" data-en-placeholder="Example Ltd"></label>
+      <label class="field"><span data-en="Environment">Miljö</span><input name="name" maxlength="80" required placeholder="Produktion" data-en-placeholder="Production"></label>
+      <button class="btn primary" type="submit" data-en="Create">Skapa</button>
+      <p class="status" id="env-new-status" role="status"></p>
+    </form>
+  </div>
+</section>
+</template>
+
+<!-- En miljö -->
+<template id="tpl-env">
+<section class="page">
+  <div class="report-head">
+    <div class="page-head">
+      <p class="eyebrow" id="env-eyebrow"></p>
+      <h1 id="env-title"></h1>
+    </div>
+    <div class="actions env-exports">
+      <button class="btn primary" type="button" data-export="docx" data-en="Word document">Word-dokument</button>
+      <button class="btn" type="button" data-export="xlsx">Excel</button>
+      <select id="doc-lang" aria-label="Dokumentets språk" data-en-aria-label="Document language">
+        <option value="sv">Svenska</option><option value="en">English</option>
+      </select>
+    </div>
+  </div>
+  <dl class="kpis" id="env-kpis"></dl>
+
+  <div class="card drop" id="drop" tabindex="0" role="button" aria-label="Importera filer" data-en-aria-label="Import files">
+    <input type="file" id="file-input" accept=".json,.zip" multiple hidden>
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div>
+      <b data-en="Import from the collector">Importera från insamlaren</b>
+      <small data-en="Drop JSON files or a zip of the output folder here, or click to choose. A newer collection of the same server replaces the older one.">Släpp JSON-filer eller en zip av mappen output här, eller klicka för att välja. En nyare insamling av samma server ersätter den äldre.</small>
+    </div>
+  </div>
+  <ul class="import-result" id="import-result" hidden></ul>
+
+  <div class="table-block">
+    <div class="toolbar">
+      <h2 data-en="Servers">Servrar</h2>
+      <input type="search" id="srv-filter" placeholder="Filtrera" data-en-placeholder="Filter" aria-label="Filtrera" data-en-aria-label="Filter">
+    </div>
+    <div class="table-scroll"><table class="data" id="srv-table"></table></div>
+    <p class="empty-state" id="srv-empty" hidden data-en="No servers yet. Import files from the collector above.">Inga servrar än. Importera filer från insamlaren ovan.</p>
+  </div>
+
+  <div class="table-block" id="obs-block" hidden>
+    <h2 data-en="Observations">Iakttagelser</h2>
+    <ul class="obs" id="obs-list"></ul>
+  </div>
+
+  <details class="card settings-card env-settings">
+    <summary><h2 data-en="Document and environment settings">Dokument och inställningar för miljön</h2></summary>
+    <form id="env-form" autocomplete="off" novalidate>
+      <div class="field-row">
+        <label class="field"><span data-en="Customer">Kund</span><input name="customer" maxlength="120"></label>
+        <label class="field"><span data-en="Environment">Miljö</span><input name="name" maxlength="80" required></label>
+      </div>
+      <div class="field-row">
+        <label class="field field-narrow"><span data-en="Document version">Dokumentversion</span><input name="version" maxlength="20"></label>
+        <label class="field"><span data-en="Classification">Klassning</span><select name="classification" id="cls-select"></select></label>
+      </div>
+      <div class="field-row">
+        <label class="field"><span data-en="Document owner">Dokumentägare</span><input name="owner" maxlength="120"></label>
+        <label class="field"><span data-en="Approved by">Godkänd av</span><input name="approver" maxlength="120"></label>
+      </div>
+      <label class="check"><input type="checkbox" name="show_all_features"> <span data-en="Show default roles and features in the document">Visa roller och funktioner som är standard i dokumentet</span></label>
+      <label class="check"><input type="checkbox" name="show_software"> <span data-en="Show installed software in the document">Visa installerade program i dokumentet</span></label>
+      <label class="field"><span data-en="Hide services (names, one per line)">Dölj tjänster (namn, en per rad)</span>
+        <textarea name="hide_services" rows="3" spellcheck="false"></textarea></label>
+      <p class="hint" data-en="For services that are standard in your environment, for example a monitoring agent on every server. They are still in the Excel file.">För tjänster som är standard i er miljö, till exempel en övervakningsagent på alla servrar. De finns kvar i Excel-filen.</p>
+      <div class="logo-row">
+        <span class="field-label" data-en="Customer logo on the cover page">Kundens logotyp på försättsbladet</span>
+        <div class="logo-line"><img id="env-logo" alt="" hidden><input type="file" id="env-logo-input" accept="image/png,image/jpeg"><button class="link danger" type="button" id="env-logo-del" hidden data-en="Remove">Ta bort</button></div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" type="submit" data-en="Save">Spara</button>
+        <button class="btn" type="button" data-export="zip" data-en="Download collected files (zip)">Hämta insamlade filer (zip)</button>
+        <button class="link danger" type="button" id="env-delete" data-en="Delete environment">Ta bort miljön</button>
+      </div>
+      <p class="status" id="env-status" role="status"></p>
+    </form>
+  </details>
+</section>
+</template>
+
+<!-- En server -->
+<template id="tpl-server">
+<section class="page">
+  <p class="crumbs"><a id="back-link" href="#/" data-en="Back to the environment">Tillbaka till miljön</a></p>
+  <div class="report-head">
+    <div class="page-head">
+      <p class="eyebrow" id="srv-eyebrow"></p>
+      <h1 id="srv-title"></h1>
+    </div>
+    <div class="actions"><button class="link danger" type="button" id="srv-delete" data-en="Remove server">Ta bort servern</button></div>
+  </div>
+  <form class="card settings-card srv-note" id="note-form" autocomplete="off" novalidate>
+    <div class="field-row">
+      <label class="field"><span data-en="Description and purpose (in the document)">Beskrivning och syfte (i dokumentet)</span><input name="description" maxlength="400"></label>
+      <label class="field field-narrow"><span data-en="Owner">Ansvarig</span><input name="owner" maxlength="120"></label>
+    </div>
+    <div class="actions"><button class="btn small" type="submit" data-en="Save">Spara</button><p class="status" id="note-status" role="status"></p></div>
+  </form>
+  <div id="srv-body"></div>
+</section>
+</template>
+
+<!-- Insamlare -->
+<template id="tpl-collector">
+<section class="page">
+  <div class="intro page-head">
+    <p class="eyebrow" data-en="Atlas Server · Collector">Atlas Server · Insamlare</p>
+    <h1 data-en="Collect from the servers">Samla in från servrarna</h1>
+    <p data-en="The collector is a PowerShell script that only reads. It needs no installation and no Python on the servers.">Insamlaren är ett PowerShell-skript som bara läser. Det behöver ingen installation och ingen Python på servrarna.</p>
+  </div>
+  <div class="card settings-card wide">
+    <h2 data-en="1. Download">1. Hämta</h2>
+    <p><a class="btn primary" href="api/collector" data-en="Download the collector (zip)">Hämta insamlaren (zip)</a></p>
+    <h2 data-en="2. Run on one server">2. Kör på en server</h2>
+    <p data-en="Unpack the zip on the server and double-click Collect-AtlasServer.cmd, or run it from an elevated prompt. The file ends up in the output folder next to the script.">Packa upp zip-filen på servern och dubbelklicka på Collect-AtlasServer.cmd, eller kör den från en kommandotolk som administratör. Filen hamnar i mappen output bredvid skriptet.</p>
+    <pre class="code">Collect-AtlasServer.cmd</pre>
+    <h2 data-en="Or: run against several servers from an admin server">Eller: kör mot flera servrar från en adminserver</h2>
+    <p data-en="Uses WinRM (PowerShell Remoting) with Kerberos. The account must be administrator on the servers.">Använder WinRM (PowerShell Remoting) med Kerberos. Kontot ska vara administratör på servrarna.</p>
+    <pre class="code">Collect-AtlasServer.cmd -ComputerName SRV01,SRV02,SRV03
+Collect-AtlasServer.cmd -ComputerListFile servrar.txt
+Collect-AtlasServer.cmd -ComputerListFile servrar.txt -AskCredential</pre>
+    <h2 data-en="3. Import">3. Importera</h2>
+    <p data-en="Open the environment and drop the JSON files, or a zip of the output folder, on the import area.">Öppna miljön och släpp JSON-filerna, eller en zip av mappen output, på importytan.</p>
+  </div>
+</section>
+</template>
+
+<!-- Inställningar -->
+<template id="tpl-settings">
+<section class="page">
+  <div class="intro page-head">
+    <p class="eyebrow" data-en="Atlas Server · Settings">Atlas Server · Inställningar</p>
+    <h1 data-en="Settings">Inställningar</h1>
+  </div>
+  <form class="card settings-card" id="partner-form" autocomplete="off" novalidate>
+    <h2 data-en="Prepared by (on the cover page)">Upprättad av (på försättsbladet)</h2>
+    <div class="field-row">
+      <label class="field"><span data-en="Company">Företag</span><input name="company" maxlength="120"></label>
+      <label class="field"><span data-en="Consultant">Konsult</span><input name="consultant" maxlength="120"></label>
+    </div>
+    <div class="field-row">
+      <label class="field"><span data-en="Email">E-post</span><input name="email" maxlength="120"></label>
+      <label class="field"><span data-en="Phone">Telefon</span><input name="phone" maxlength="120"></label>
+    </div>
+    <div class="logo-row">
+      <span class="field-label" data-en="Partner logo">Partnerns logotyp</span>
+      <div class="logo-line"><img id="partner-logo" alt="" hidden><input type="file" id="partner-logo-input" accept="image/png,image/jpeg"><button class="link danger" type="button" id="partner-logo-del" hidden data-en="Remove">Ta bort</button></div>
+    </div>
+    <div class="actions"><button class="btn primary" type="submit" data-en="Save">Spara</button><p class="status" id="partner-status" role="status"></p></div>
+  </form>
+  <form class="card settings-card" id="pw-form" autocomplete="off" novalidate>
+    <h2 data-en="Change password">Byt lösenord</h2>
+    <input name="user" autocomplete="username" class="visually-hidden" tabindex="-1" aria-hidden="true">
+    <label class="field"><span data-en="Current password">Nuvarande lösenord</span><input name="current" type="password" autocomplete="current-password"></label>
+    <div class="field-row">
+      <label class="field"><span data-en="New password">Nytt lösenord</span><input name="new" type="password" autocomplete="new-password"></label>
+      <label class="field"><span data-en="Repeat">Upprepa</span><input name="confirm" type="password" autocomplete="new-password"></label>
+    </div>
+    <div class="actions"><button class="btn" type="submit" data-en="Change password">Byt lösenord</button><p class="status" id="pw-status" role="status"></p></div>
+  </form>
+</section>
+</template>
+</body>
+</html>

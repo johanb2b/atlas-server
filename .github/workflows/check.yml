@@ -1,0 +1,48 @@
+name: Röktest
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt pyflakes
+      - run: python -m pyflakes *.py tests
+      - run: python tests/smoke_test.py
+
+  powershell:
+    # Kontrollerar att insamlaren går att tolka i Windows PowerShell 5.1 och kör den på en Windows Server-runner.
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tolka skriptet
+        shell: powershell
+        run: |
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile("$PWD\collector\Collect-AtlasServer.ps1", [ref]$null, [ref]$errors) | Out-Null
+          if ($errors) { $errors | ForEach-Object { Write-Error $_.Message }; exit 1 }
+      - name: Kör insamlaren lokalt
+        shell: powershell
+        run: |
+          .\collector\Collect-AtlasServer.ps1 -OutputPath "$env:RUNNER_TEMP\as"
+          $f = Get-ChildItem "$env:RUNNER_TEMP\as\*.json" | Select-Object -First 1
+          $j = Get-Content $f.FullName -Raw | ConvertFrom-Json
+          if ($j._meta.tool -ne 'Atlas Server') { throw 'fel _meta' }
+          Write-Host "Server: $($j.system.computer_name), $($j.system.os_caption), roller: $(@($j.features).Count), tjänster: $(@($j.services).Count)"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Bygg Word och Excel från insamlingen
+        run: |
+          pip install -r requirements.txt
+          python atlas_server_cli.py build "$env:RUNNER_TEMP\as" --customer Test --out "$env:RUNNER_TEMP\as\test"

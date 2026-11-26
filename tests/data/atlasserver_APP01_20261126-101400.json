@@ -1,0 +1,560 @@
+{
+ "_meta": {
+  "tool": "Atlas Server",
+  "format": 1,
+  "collector_version": "1.0.0",
+  "method": "remote",
+  "collected_from": "ADM01",
+  "collected_by": "EXEMPEL\\admin.anna",
+  "collected_utc": "2026-11-26T09:14:00Z",
+  "collected_local": "2026-11-26T10:14:00",
+  "ps_version": "5.1.20348.2849",
+  "elevated": true
+ },
+ "system": {
+  "computer_name": "APP01",
+  "dns_hostname": "APP01",
+  "domain": "exempel.local",
+  "part_of_domain": true,
+  "domain_role": 3,
+  "fqdn": "APP01.exempel.local",
+  "manufacturer": "Microsoft Corporation",
+  "model": "Virtual Machine",
+  "memory_bytes": 34359738368,
+  "logical_cpus": 8,
+  "hypervisor_present": true,
+  "os_caption": "Microsoft Windows Server 2022 Datacenter",
+  "os_version": "10.0.20348",
+  "os_architecture": "64-bit",
+  "os_language": 1053,
+  "description": "Affärssystem och SQL Server",
+  "install_date": "2025-01-14T09:31:02",
+  "last_boot": "2026-11-12T03:05:41",
+  "registered_org": "Exempel AB",
+  "product_name": "Windows Server 2022 Datacenter",
+  "edition_id": "ServerDatacenter",
+  "installation_type": "Server",
+  "display_version": "21H2",
+  "current_build": "20348",
+  "ubr": "3091",
+  "serial_number": "0000-0000-0000-0000-0000-0000-00",
+  "bios_version": "Hyper-V UEFI Release v4.1",
+  "cpu_name": "Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz",
+  "cpu_sockets": 1,
+  "cpu_cores": 8,
+  "time_zone": "(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna",
+  "rdp_enabled": true
+ },
+ "network": [
+  {
+   "index": 1,
+   "name": "Ethernet",
+   "description": "Microsoft Hyper-V Network Adapter",
+   "mac": "00-15-5D-0A-0A-1F",
+   "dhcp": false,
+   "ipv4": [
+    {
+     "address": "10.10.10.31",
+     "mask": "255.255.255.0"
+    }
+   ],
+   "ipv6": [
+    {
+     "address": "fe80::1c2d:3e4f:5a6b:7c8d",
+     "mask": "64"
+    }
+   ],
+   "gateways": [
+    "10.10.10.1"
+   ],
+   "dns_servers": [
+    "10.10.10.10",
+    "10.10.10.11"
+   ],
+   "dns_suffix": "exempel.local",
+   "register_dns": true
+  },
+  {
+   "index": 2,
+   "name": "Backup",
+   "description": "Microsoft Hyper-V Network Adapter #2",
+   "mac": "00-15-5D-0A-0B-1F",
+   "dhcp": false,
+   "ipv4": [
+    {
+     "address": "10.10.20.31",
+     "mask": "255.255.255.0"
+    }
+   ],
+   "ipv6": [],
+   "gateways": [],
+   "dns_servers": [],
+   "dns_suffix": "",
+   "register_dns": false
+  }
+ ],
+ "dns": {
+  "primary_suffix": "exempel.local",
+  "search_list": []
+ },
+ "features_source": "Get-WindowsFeature",
+ "features": [
+  {
+   "name": "FileAndStorage-Services",
+   "display_name": "File and Storage Services",
+   "type": "Role",
+   "parent": null,
+   "depth": 1
+  },
+  {
+   "name": "Storage-Services",
+   "display_name": "Storage Services",
+   "type": "Role Service",
+   "parent": "FileAndStorage-Services",
+   "depth": 2
+  },
+  {
+   "name": "NET-Framework-45-Features",
+   "display_name": ".NET Framework 4.8 Features",
+   "type": "Feature",
+   "parent": null,
+   "depth": 1
+  },
+  {
+   "name": "NET-Framework-45-Core",
+   "display_name": ".NET Framework 4.8",
+   "type": "Feature",
+   "parent": "NET-Framework-45-Features",
+   "depth": 2
+  },
+  {
+   "name": "NET-WCF-Services45",
+   "display_name": "WCF Services",
+   "type": "Feature",
+   "parent": "NET-Framework-45-Features",
+   "depth": 2
+  },
+  {
+   "name": "NET-WCF-TCP-PortSharing45",
+   "display_name": "TCP Port Sharing",
+   "type": "Feature",
+   "parent": "NET-WCF-Services45",
+   "depth": 3
+  },
+  {
+   "name": "PowerShellRoot",
+   "display_name": "Windows PowerShell",
+   "type": "Feature",
+   "parent": null,
+   "depth": 1
+  },
+  {
+   "name": "PowerShell",
+   "display_name": "Windows PowerShell 5.1",
+   "type": "Feature",
+   "parent": "PowerShellRoot",
+   "depth": 2
+  },
+  {
+   "name": "System-DataArchiver",
+   "display_name": "System Data Archiver",
+   "type": "Feature",
+   "parent": null,
+   "depth": 1
+  },
+  {
+   "name": "Windows-Defender",
+   "display_name": "Microsoft Defender Antivirus",
+   "type": "Feature",
+   "parent": null,
+   "depth": 1
+  },
+  {
+   "name": "WoW64-Support",
+   "display_name": "WoW64 Support",
+   "type": "Feature",
+   "parent": null,
+   "depth": 1
+  },
+  {
+   "name": "Web-Server",
+   "display_name": "Web Server (IIS)",
+   "type": "Role",
+   "parent": null,
+   "depth": 1
+  },
+  {
+   "name": "Web-WebServer",
+   "display_name": "Web Server",
+   "type": "Role Service",
+   "parent": "Web-Server",
+   "depth": 2
+  },
+  {
+   "name": "Web-Mgmt-Console",
+   "display_name": "IIS Management Console",
+   "type": "Role Service",
+   "parent": "Web-Mgmt-Tools",
+   "depth": 3
+  }
+ ],
+ "services": [
+  {
+   "name": "Dhcp",
+   "display_name": "DHCP Client",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "NT Authority\\LocalService",
+   "path": "C:\\Windows\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "Dnscache",
+   "display_name": "DNS Client",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "NT AUTHORITY\\NetworkService",
+   "path": "C:\\Windows\\system32\\svchost.exe -k NetworkService -p",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "EventLog",
+   "display_name": "Windows Event Log",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "NT AUTHORITY\\LocalService",
+   "path": "C:\\Windows\\system32\\svchost.exe",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "LanmanServer",
+   "display_name": "Server",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "LocalSystem",
+   "path": "C:\\Windows\\system32\\svchost.exe",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "LanmanWorkstation",
+   "display_name": "Workstation",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "NT AUTHORITY\\NetworkService",
+   "path": "C:\\Windows\\system32\\svchost.exe",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "MpsSvc",
+   "display_name": "Windows Defender Firewall",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "NT Authority\\LocalService",
+   "path": "C:\\Windows\\system32\\svchost.exe",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "TermService",
+   "display_name": "Remote Desktop Services",
+   "state": "Running",
+   "start_mode": "Manual",
+   "delayed": false,
+   "account": "NT Authority\\NetworkService",
+   "path": "C:\\Windows\\system32\\svchost.exe",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "W32Time",
+   "display_name": "Windows Time",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "NT AUTHORITY\\LocalService",
+   "path": "C:\\Windows\\system32\\svchost.exe",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "WinRM",
+   "display_name": "Windows Remote Management (WS-Management)",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "NT AUTHORITY\\NetworkService",
+   "path": "C:\\Windows\\system32\\svchost.exe",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "wuauserv",
+   "display_name": "Windows Update",
+   "state": "Stopped",
+   "start_mode": "Manual",
+   "delayed": false,
+   "account": "LocalSystem",
+   "path": "C:\\Windows\\system32\\svchost.exe",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "TrustedInstaller",
+   "display_name": "Windows Modules Installer",
+   "state": "Stopped",
+   "start_mode": "Manual",
+   "delayed": false,
+   "account": "LocalSystem",
+   "path": "C:\\Windows\\servicing\\TrustedInstaller.exe",
+   "exe": "C:\\Windows\\servicing\\TrustedInstaller.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "WinDefend",
+   "display_name": "Microsoft Defender Antivirus Service",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "LocalSystem",
+   "path": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.25010.11-0\\MsMpEng.exe",
+   "exe": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.25010.11-0\\MsMpEng.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "edgeupdate",
+   "display_name": "Microsoft Edge Update Service (edgeupdate)",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": true,
+   "account": "LocalSystem",
+   "path": "C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\\MicrosoftEdgeUpdate.exe",
+   "exe": "C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\\MicrosoftEdgeUpdate.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "CDPUserSvc_4a1b2",
+   "display_name": "Connected Devices Platform User Service_4a1b2",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "",
+   "path": "C:\\Windows\\system32\\svchost.exe",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "Spooler",
+   "display_name": "Print Spooler",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "LocalSystem",
+   "path": "C:\\Windows\\system32\\spoolsv.exe",
+   "exe": "C:\\Windows\\system32\\spoolsv.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "W3SVC",
+   "display_name": "World Wide Web Publishing Service",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "LocalSystem",
+   "path": "C:\\Windows\\system32\\svchost.exe",
+   "exe": "C:\\Windows\\system32\\svchost.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft® Windows® Operating System",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "MSSQLSERVER",
+   "display_name": "SQL Server (MSSQLSERVER)",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "NT Service\\MSSQLSERVER",
+   "path": "\"C:\\Program Files\\Microsoft SQL Server\\MSSQL16.MSSQLSERVER\\MSSQL\\Binn\\sqlservr.exe\" -sMSSQLSERVER",
+   "exe": "C:\\Program Files\\Microsoft SQL Server\\MSSQL16.MSSQLSERVER\\MSSQL\\Binn\\sqlservr.exe",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft SQL Server",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "SQLSERVERAGENT",
+   "display_name": "SQL Server Agent (MSSQLSERVER)",
+   "state": "Stopped",
+   "start_mode": "Manual",
+   "delayed": false,
+   "account": "NT Service\\SQLSERVERAGENT",
+   "path": "C:\\Program Files\\Microsoft SQL Server\\MSSQL16.MSSQLSERVER\\MSSQL\\Binn\\SQLAGENT.EXE",
+   "exe": "C:\\Program Files\\Microsoft SQL Server\\MSSQL16.MSSQLSERVER\\MSSQL\\Binn\\SQLAGENT.EXE",
+   "company": "Microsoft Corporation",
+   "product": "Microsoft SQL Server",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  },
+  {
+   "name": "ExempelAffar",
+   "display_name": "Exempel Affärssystem Applikationsserver",
+   "state": "Running",
+   "start_mode": "Auto",
+   "delayed": false,
+   "account": "EXEMPEL\\svc-affar",
+   "path": "D:\\Program\\Exempel Affärssystem\\AppServer.exe",
+   "exe": "D:\\Program\\Exempel Affärssystem\\AppServer.exe",
+   "company": "Exempel Software AB",
+   "product": "Exempel Affärssystem",
+   "file_version": "10.0.20348.1",
+   "service_type": "Own Process",
+   "description": ""
+  }
+ ],
+ "software": [
+  {
+   "name": "Microsoft Edge",
+   "version": "131.0.2903.112",
+   "publisher": "Microsoft Corporation",
+   "install_date": "20250114",
+   "arch": "x86"
+  },
+  {
+   "name": "Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.40.33810",
+   "version": "14.40.33810.0",
+   "publisher": "Microsoft Corporation",
+   "install_date": "20250114",
+   "arch": "x86"
+  },
+  {
+   "name": "Microsoft SQL Server 2022 (64-bit)",
+   "version": "16.0.4155.4",
+   "publisher": "Microsoft Corporation",
+   "install_date": "20250210",
+   "arch": "x64"
+  },
+  {
+   "name": "Exempel Affärssystem 9.2",
+   "version": "9.2.1",
+   "publisher": "Exempel Software AB",
+   "install_date": "20250212",
+   "arch": "x64"
+  }
+ ],
+ "disks": [
+  {
+   "drive": "C:",
+   "label": "",
+   "file_system": "NTFS",
+   "size_bytes": 107374182400,
+   "free_bytes": 45097156608
+  },
+  {
+   "drive": "D:",
+   "label": "SQL",
+   "file_system": "NTFS",
+   "size_bytes": 536870912000,
+   "free_bytes": 40802189312
+  }
+ ],
+ "shares": [],
+ "updates": {
+  "count": 6,
+  "last_installed": "2026-11-12T00:00:00",
+  "last_id": "KB5046616"
+ },
+ "firewall": [
+  {
+   "profile": "Domain",
+   "enabled": true
+  },
+  {
+   "profile": "Private",
+   "enabled": true
+  },
+  {
+   "profile": "Public",
+   "enabled": true
+  }
+ ],
+ "_errors": [
+  {
+   "section": "updates",
+   "message": "Åtkomst nekad (exempel på ett fel i insamlingen)"
+  }
+ ]
+}

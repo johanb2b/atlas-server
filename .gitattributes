@@ -1,0 +1,7 @@
+# Radslut oavsett var repot checkas ut: Python och skal med LF, Windows-filerna med CRLF.
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+collector/*.txt text eol=crlf

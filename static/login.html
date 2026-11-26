@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Logga in, Atlas Server</title>
+<link rel="icon" href="static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="static/app.css">
+<script src="static/theme.js"></script>
+<script src="static/login.js" defer></script>
+</head>
+<body class="login-body">
+<!-- Text på svenska i elementet, engelska i data-en (och data-en-placeholder, data-en-aria-label). -->
+<div class="login-corner">
+  <div class="lang-switch" id="lang-switch" role="group" aria-label="Språk" data-en-aria-label="Language">
+    <button type="button" data-lang="sv" lang="sv" title="Svenska" aria-pressed="true">SV</button>
+    <button type="button" data-lang="en" lang="en" title="English" aria-pressed="false">EN</button>
+  </div>
+  <button class="icon-btn" id="theme-btn" type="button" aria-label="Tema" data-en-aria-label="Theme">
+    <svg class="i-system" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="i-light" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="i-dark" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<main class="login-wrap">
+  <div class="login-brand">
+    <svg viewBox="0 0 32 32" width="48" height="48" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#D6002A"/><rect x="7.5" y="7.5" width="17" height="5" rx="1.6" fill="none" stroke="#fff" stroke-width="2"/><rect x="7.5" y="13.5" width="17" height="5" rx="1.6" fill="none" stroke="#fff" stroke-width="2"/><rect x="7.5" y="19.5" width="17" height="5" rx="1.6" fill="none" stroke="#fff" stroke-width="2"/><circle cx="21" cy="10" r="1.1" fill="#fff"/><circle cx="21" cy="16" r="1.1" fill="#fff"/><circle cx="21" cy="22" r="1.1" fill="#fff"/></svg>
+
+    <div>
+      <div class="login-name">Atlas Server</div>
+      <div class="login-tag" data-en="Documentation of Windows Server environments">Dokumentation av Windows Server-miljöer</div>
+    </div>
+  </div>
+
+  <form class="card login-card" id="login-form" novalidate hidden>
+    <h1 data-en="Log in">Logga in</h1>
+    <label class="field"><span data-en="User name">Användarnamn</span>
+      <input name="user" autocomplete="username" spellcheck="false" autocapitalize="off" required></label>
+    <label class="field"><span data-en="Password">Lösenord</span>
+      <input name="password" type="password" autocomplete="current-password" required></label>
+    <button class="btn primary login-submit" type="submit" data-en="Log in">Logga in</button>
+    <p class="status" id="login-status" role="status" aria-live="polite"></p>
+  </form>
+
+  <form class="card login-card" id="change-form" novalidate hidden>
+    <h1 data-en="Choose your own password">Välj ett eget lösenord</h1>
+    <div class="login-note">
+      <p data-en="You logged in with the default password. Everyone who has installed Atlas Server knows it, so choose your own password before you continue.">Du loggade in med standardlösenordet. Alla som har installerat Atlas Server känner till det, så välj ett eget lösenord innan du fortsätter.</p>
+    </div>
+    <input name="user" autocomplete="username" class="visually-hidden" tabindex="-1" aria-hidden="true">
+    <label class="field"><span data-en="New password">Nytt lösenord</span>
+      <input name="new" type="password" autocomplete="new-password" required></label>
+    <label class="field"><span data-en="Repeat the new password">Upprepa det nya lösenordet</span>
+      <input name="confirm" type="password" autocomplete="new-password" required></label>
+    <p class="hint" id="pw-rule"></p>
+    <label class="check"><input type="checkbox" id="show-pw"> <span data-en="Show passwords">Visa lösenorden</span></label>
+    <button class="btn primary login-submit" type="submit" data-en="Save and continue">Spara och fortsätt</button>
+    <p class="status" id="change-status" role="status" aria-live="polite"></p>
+  </form>
+
+  <p class="login-foot" data-en="Atlas Server only reads from the servers it documents. Passwords are never stored.">Atlas Server läser bara från servrarna som dokumenteras. Lösenord sparas aldrig.</p>
+</main>
+</body>
+</html>
