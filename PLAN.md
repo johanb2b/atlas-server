@@ -29,6 +29,12 @@ Gjorda utan att fråga. Ändra gärna.
 * **Port 8090** i Docker, så att Atlas på 8080 kan köras på samma värd.
 * **Iakttagelser:** support från Microsoft, SMB 1.0, brandvägg av, lite ledigt diskutrymme, gamla uppdateringar och insamling utan administratörsrätt.
 
+## Export till KeePass (Claude, klar 2026-11-26)
+
+- [x] KeePass XML (2.x) per miljö, i webben och på kommandoraden.
+
+Antaganden: rollen i titeln är serverns beskrivning från webben, annars tillagda roller, annars domänrollen. FQDN skrivs med små bokstäver. Användarnamn och lösenord är tomma. UUID räknas fram ur miljö och servernamn, så att en ny import uppdaterar posterna.
+
 ## Fas 2: Kontroll mot riktiga servrar (Johan, sedan Claude)
 
 - [ ] Kör insamlaren lokalt på en ny Windows Server 2022 eller 2025 och importera filen.

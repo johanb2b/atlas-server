@@ -7,6 +7,7 @@ Dokumentation av Windows Server-miljöer. Ett PowerShell-skript läser av servra
 | **Insamlare** | `collector/Collect-AtlasServer.cmd`: PowerShell-skript som bara läser. Körs på servern, eller från en adminserver mot många servrar över WinRM. En JSON-fil per server. |
 | **Webb i Docker** | Miljöer per kund, import maskin för maskin (JSON eller zip), en sida per server, beskrivning och ansvarig, logotyper och export. |
 | **Word** | Försättsblad med dokumentstyrning, översikt, iakttagelser, en sida per server och en bilaga om insamlingen. |
+| **KeePass** | KeePass XML (2.x) med en post per server: titel med namn, FQDN och roll, IP som URL, roller och tjänster i anteckningarna. Importeras under Arkiv, Importera. |
 | **Excel** | Servrar, nätverk, roller och funktioner, tilläggstjänster, alla tjänster, program, diskar, utdelningar, iakttagelser och insamling. |
 
 Per server dokumenteras namn, FQDN, domän och domänroll, IP-adresser, gateway och DNS-servrar, Windows-version och build, installationstyp, plattform och hårdvara, Windows-roller och funktioner (tillagda markeras), tjänster utöver Windows standard, utdelningar, diskar och installerade program.
