@@ -24,7 +24,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app.py atlas_server_cli.py server_model.py server_docx.py server_xlsx.py LICENSE THIRD-PARTY-NOTICES.md ./
+COPY app.py atlas_server_cli.py server_model.py server_docx.py server_xlsx.py server_keepass.py LICENSE THIRD-PARTY-NOTICES.md ./
 COPY static ./static
 # Insamlaren följer med, så att den kan hämtas från webben.
 COPY collector ./collector

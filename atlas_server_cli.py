@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 
 import server_docx
+import server_keepass
 import server_model as model
 import server_xlsx
 
@@ -40,6 +41,7 @@ def main(argv=None):
     b.add_argument("--version", default="1.0")
     b.add_argument("--classification", choices=list(server_docx.CLASSIFICATIONS), default="internal")
     b.add_argument("--no-software", action="store_true", help="Utelämna installerade program i Word")
+    b.add_argument("--keepass", action="store_true", help="Skriv även KeePass XML (2.x) för import i KeePass")
     b.add_argument("--out", default="", help="Filnamn utan ändelse. Standard: kund_serverdokumentation")
     a = ap.parse_args(argv)
 
@@ -62,7 +64,12 @@ def main(argv=None):
     Path(f"{stem}.docx").write_bytes(server_docx.to_docx(
         server_docx.build_doc(servers, a.lang, info, show_software=not a.no_software)))
     Path(f"{stem}.xlsx").write_bytes(server_xlsx.to_xlsx(servers, a.lang))
-    print(f"{len(servers)} servrar. Skrev {stem}.docx och {stem}.xlsx")
+    written = [f"{stem}.docx", f"{stem}.xlsx"]
+    if a.keepass:
+        group = ", ".join(x for x in (a.customer, a.environment) if x)
+        Path(f"{stem}_keepass.xml").write_bytes(server_keepass.to_keepass_xml(servers, a.lang, group))
+        written.append(f"{stem}_keepass.xml")
+    print(f"{len(servers)} servrar. Skrev {', '.join(written)}")
 
 
 if __name__ == "__main__":

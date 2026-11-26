@@ -34,6 +34,7 @@ from pathlib import Path
 from flask import Flask, jsonify, redirect, request, send_file
 
 import server_docx
+import server_keepass
 import server_model as model
 import server_xlsx
 
@@ -670,7 +671,7 @@ def export(eid, kind):
     lang = request.args.get("lang") if request.args.get("lang") in model.LANGS else ui_lang()
     env = read_json(p / "env.json", {})
     servers = built_servers(p, env, lang)
-    if kind in ("docx", "xlsx") and not servers:
+    if kind in ("docx", "xlsx", "keepass") and not servers:
         return err(T("Importera minst en server först.", "Import at least one server first."), 409)
     customer = env.get("customer") or env.get("name") or ""
     if kind == "docx":
@@ -688,6 +689,11 @@ def export(eid, kind):
         data = server_xlsx.to_xlsx(servers, lang)
         name = server_docx.file_name(customer, "xlsx", lang)
         mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    elif kind == "keepass":
+        group = ", ".join(x for x in (env.get("customer"), env.get("name")) if x)
+        data = server_keepass.to_keepass_xml(servers, lang, group, eid)
+        name = server_docx.file_name(customer, "xml", lang).rsplit("_", 1)[0] + "_keepass.xml"
+        mime = "application/xml"
     elif kind == "zip":
         # Alla filer från insamlaren, så att miljön kan flyttas till en annan Atlas Server.
         buf = io.BytesIO()

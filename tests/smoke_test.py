@@ -85,9 +85,10 @@ for lang in m.LANGS:
 import atlas_server_cli  # noqa: E402
 cwd = os.getcwd()
 os.chdir(TMP)
-atlas_server_cli.main(["build", str(DATA), "--customer", "Exempel AB", "--out", "cli"])
+atlas_server_cli.main(["build", str(DATA), "--customer", "Exempel AB", "--out", "cli", "--keepass"])
 os.chdir(cwd)
-check((TMP / "cli.docx").is_file() and (TMP / "cli.xlsx").is_file(), "kommandoraden skriver Word och Excel")
+check(all((TMP / f).is_file() for f in ("cli.docx", "cli.xlsx", "cli_keepass.xml")),
+      "kommandoraden skriver Word, Excel och KeePass")
 
 # --- Webben --------------------------------------------------------------------
 import app as web  # noqa: E402
@@ -146,6 +147,26 @@ with zipfile.ZipFile(io.BytesIO(r.data)) as z:
     check("word/media/customer.png" in z.namelist(), "logotypen finns i Word")
 r = c.get(f"/api/envs/{eid}/export/xlsx?lang=en")
 check(r.status_code == 200 and r.data[:2] == b"PK", "Excel laddas ner")
+r = c.get(f"/api/envs/{eid}/export/keepass?lang=sv")
+check(r.status_code == 200 and "_keepass.xml" in r.headers["Content-Disposition"], "KeePass XML laddas ner")
+kp = minidom.parseString(r.data)
+entries = kp.getElementsByTagName("Entry")
+vals = {}
+for e in entries:
+    d = {x.getElementsByTagName("Key")[0].firstChild.data: (x.getElementsByTagName("Value")[0].firstChild or
+         type("n", (), {"data": ""})).data for x in e.getElementsByTagName("String")}
+    d["icon"] = e.getElementsByTagName("IconID")[0].firstChild.data
+    vals[d["Title"].split(":")[0]] = d
+check(len(entries) == 3 and kp.getElementsByTagName("Group")[0].getElementsByTagName("Name")[0].firstChild.data
+      == "Exempel AB, Produktion", "KeePass har en grupp per miljö och en post per server")
+check(vals["DC01"]["Title"] == "DC01: dc01.exempel.local Domänkontrollant" and vals["DC01"]["URL"] == "10.10.10.10"
+      and vals["DC01"]["icon"] == "3", "KeePass titel, URL och ikon")
+check("Active Directory Domain Services" in vals["DC01"]["Notes"] and "Sentinel" not in vals["DC01"]["Notes"],
+      "KeePass anteckningar har roller och respekterar dolda tjänster")
+check("Web Server (IIS)" in vals["APP01"]["Title"], "utan beskrivning blir rollerna titel")
+r2 = c.get(f"/api/envs/{eid}/export/keepass?lang=sv")
+check(minidom.parseString(r2.data).getElementsByTagName("UUID")[1].firstChild.data
+      == kp.getElementsByTagName("UUID")[1].firstChild.data, "samma UUID vid ny export, så KeePass uppdaterar posten")
 r = c.get(f"/api/envs/{eid}/export/zip")
 with zipfile.ZipFile(io.BytesIO(r.data)) as z:
     check(len(z.namelist()) == 3, "zip med insamlade filer")
