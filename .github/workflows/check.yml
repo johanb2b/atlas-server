@@ -46,3 +46,9 @@ jobs:
         run: |
           pip install -r requirements.txt
           python atlas_server_cli.py build "$env:RUNNER_TEMP\as" --customer Test --out "$env:RUNNER_TEMP\as\test"
+      - name: Spara insamlingen från GitHubs server
+        uses: actions/upload-artifact@v4
+        with:
+          name: insamling-windows-runner
+          path: ${{ runner.temp }}/as/
+          retention-days: 14
