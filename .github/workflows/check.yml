@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt pyflakes
@@ -39,7 +39,7 @@ jobs:
           $j = Get-Content $f.FullName -Raw | ConvertFrom-Json
           if ($j._meta.tool -ne 'Atlas Server') { throw 'fel _meta' }
           Write-Host "Server: $($j.system.computer_name), $($j.system.os_caption), roller: $(@($j.features).Count), tjänster: $(@($j.services).Count)"
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Bygg Word och Excel från insamlingen
